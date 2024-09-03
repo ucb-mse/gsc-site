@@ -1,47 +1,57 @@
 ---
 import { Image } from "astro:assets";
-import aboutImg from "@/assets/about-astro.png";
 import PageLayout from "@/layouts/Base.astro";
+import aboutImg from "@/assets/about-astro.png";
+const images = import.meta.glob('@/assets/about/*.{jpeg,jpg,png,gif}');
 
 const meta = {
-	description: "I'm a starter theme for Astro.build",
-	title: "About",
+	description: "Meet our team members",
+	title: "Team Profiles",
 };
+
+const profiles = [
+	{
+		name: "Wayne Zhao",
+		image: "wayne-zhao.jpg",
+		position: "President",
+		bio: "I am low-key in love with TheBird's spicy chicken sandwich",
+	},
+	{
+		name: "Meghan Shen",
+		image: "meghan-shen.jpg",
+		position: "Vice President",
+		bio: "I like to eat eggs in all forms",
+	},
+	{
+		name: "Yuan Chaing",
+		image: "yuan-chiang.jpg",
+		position: "Bytekeeper",
+		bio: "Project manager with expertise in Agile methodologies and team coordination.",
+	},
+];
 ---
 
 <PageLayout meta={meta}>
 	<div class="space-y-6">
-		<h1 class="title">About</h1>
+		<h1 class="title">Team</h1>
 		<p>
-			Hi, I’m a starter Astro. I’m particularly great for getting you started with your own blogging
-			website.
+			Meet the graduate student council team members who work hard for the success of our fellow MSE students 💙
 		</p>
-		<div class="flex justify-center">
-			<Image
-				alt="A cartoon cactus looking at the 'Astro.build' logo"
-				fetchpriority="high"
-				loading="eager"
-				src={aboutImg}
-			/>
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+			{profiles.map((profile) => (
+				<div class="flex flex-col items-center space-y-4 bg-gray-100 dark:bg-gray-800 p-6 rounded-lg group">
+					<div class="w-48 h-48 rounded-full overflow-hidden">
+						<Image
+							alt={`Profile picture of ${profile.name}`}
+							src={images[`/src/assets/about/${profile.image}`]()}
+							class="w-full h-full object-cover filter grayscale transition-all duration-300 ease-in-out group-hover:filter-none"
+						/>
+					</div>
+					<h3 class="text-sm font-semibold">{profile.name}</h3>
+					<h3 class="text-sm text-gray-600 dark:text-gray-400">{profile.position}</h3>
+					<p class="text-xs text-center">{profile.bio}</p>
+				</div>
+			))}
 		</div>
-		<p>Here are my some of my awesome built in features:</p>
-		<ul class="list-inside list-disc">
-			<li>I'm ultra fast as I'm a static site</li>
-			<li>I'm fully responsive</li>
-			<li>I come with a light and dark mode</li>
-			<li>I'm easy to customise and add additional content</li>
-			<li>I have Tailwind CSS styling</li>
-			<li>Shiki code syntax highlighting</li>
-			<li>Satori for auto generating OG images for blog posts</li>
-		</ul>
-		<p>
-			Clone or fork my <a
-				aria-label="github repository"
-				class="cactus-link inline-block"
-				href="https://github.com/chrismwilliams/astro-cactus"
-				rel="noreferrer"
-				target="_blank">repo</a
-			> if you like me!
-		</p>
 	</div>
 </PageLayout>
