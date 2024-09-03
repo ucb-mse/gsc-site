@@ -12,8 +12,8 @@ interface Props {
 }
 
 const { name, imagePath, altText, position, bio } = Astro.props;
-const images = import.meta.glob<{ default: ImageMetadata }>('@/assets/about/*.{jpeg,jpg,png,gif}')
-if (!images[imagePath]) throw new Error(`"${imagePath}" does not exist in glob: "@/assets/about/*.{jpeg,jpg,png,gif}"`);
+const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/about/*.{jpeg,jpg,png,gif}')
+if (!images[imagePath]) throw new Error(`"${imagePath}" does not exist in glob: "/src/assets/about/*.{jpeg,jpg,png,gif}"`);
 ---
 
 <div class="card">
