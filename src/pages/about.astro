@@ -1,7 +1,6 @@
 ---
-import { Image } from "astro:assets";
 import PageLayout from "@/layouts/Base.astro";
-const images = import.meta.glob('@/assets/about/*.{jpeg,jpg,png,gif}');
+import Card from "@/components/Card.astro";
 
 const meta = {
 	description: "Meet our team members",
@@ -22,11 +21,53 @@ const profiles = [
 		bio: "I like to eat eggs in all forms",
 	},
 	{
-		name: "Yuan Chaing",
+		name: "Yuan Chiang",
 		image: "yuan-chiang.jpg",
 		position: "Bytekeeper",
-		bio: "Project manager with expertise in Agile methodologies and team coordination.",
+		bio: "I love keeping my bytes in dance and glitches at the bay",
 	},
+	{
+		name: "Madelyn Payne",
+		image: "madelyn-payne.jpg",
+		position: "GA Delegate",
+		bio: "I still ride my skateboard from 9th grade"
+	},
+	{
+		name: "Grace Wei",
+		image: "grace-wei.jpg",
+		position: "Orientation Committee Lead / Social Events Committee",
+		bio: "Fun fact: I collect playing cards"
+	},
+	{
+		name: "Mark Ma",
+		image: "mark-ma.jpeg",
+		position: "Academic/Industry Liaison",
+		bio: "I do a lot of simulations, both in research and video games :)"
+	},
+	{
+		name: "Shilong Wang",
+		image: "shilong-wang.jpg",
+		position: "International Student Advocate",
+		bio: "I love playing badmiton!"
+	},
+	{
+		name: "Yu-Jen Chiu",
+		image: "yu-jen-chiu.jpeg",
+		position: "Finance",
+		bio: "My mom named me after a famous green dinosaur 🦖"
+	},
+	{
+		name: "Eric Weiner",
+		image: "eric-weiner.jpeg",
+		position: "Social Events Committee",
+		bio: ""
+	},
+	{
+		name: "Prathami Kamath",
+		image: "prathami-kamath.jpeg",
+		position: "International Student Advocate",
+		bio: "My perfect day is either a cozy day at home with a book or hiking up a mountain trail – no in-between"
+	}
 ];
 ---
 
@@ -38,18 +79,13 @@ const profiles = [
 		</p>
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 			{profiles.map((profile) => (
-				<div class="flex flex-col items-center space-y-4 bg-gray-100 dark:bg-gray-800 p-6 rounded-lg group">
-					<div class="w-48 h-48 rounded-full overflow-hidden">
-						<Image
-							alt={`Profile picture of ${profile.name}`}
-							src={images[`/src/assets/about/${profile.image}`]()}
-							class="w-full h-full object-cover filter grayscale transition-all duration-300 ease-in-out group-hover:filter-none"
-						/>
-					</div>
-					<h3 class="text-sm font-semibold">{profile.name}</h3>
-					<h3 class="text-sm text-gray-600 dark:text-gray-400">{profile.position}</h3>
-					<p class="text-xs text-center">{profile.bio}</p>
-				</div>
+				<Card
+					name={profile.name}
+					imagePath={`/src/assets/about/${profile.image}`}
+					altText={`Profile picture of ${profile.name}`}
+					position={profile.position}
+					bio={profile.bio}
+				/>
 			))}
 		</div>
 	</div>
