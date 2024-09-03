@@ -38,17 +38,19 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ steps.date.outputs.date }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
+
+      - name: Get date
+        id: date
+        run: echo "date=$(date +%s)" >> $GITHUB_ENV
 
       - name: Install dependencies
         run: pnpm install
 
-        # use astro check for issues
       - name: Run check
         run: pnpm astro check
 
-        # ensure build works
       - name: Run build
         run: pnpm build
